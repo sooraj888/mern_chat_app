@@ -29,7 +29,10 @@ connectToDB();
 
 const __dirName1 = path.resolve();
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirName1, "/frontend/build")));
+  // app.use(express.static(path.join(__dirName1, "/frontend/build")));
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
+  console.log(__dirname);
+  console.log(path.resolve("frontend", "build", "index.html").red);
   app.get("*", (req, res) => {
     res.sendFile(path.resolve("frontend", "build", "index.html"));
   });
