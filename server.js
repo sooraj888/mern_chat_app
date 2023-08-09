@@ -1,17 +1,20 @@
 const express = require("express");
 const dotenv = require("dotenv");
 
-const connectToDB = require("./config/db");
+const connectToDB = require("./backend/config/db");
 const colors = require("colors");
 
-const userRoutes = require("./routes/userRoutes");
-const chatRoutes = require("./routes/chatRoutes");
+const userRoutes = require("./backend/routes/userRoutes");
+const chatRoutes = require("./backend/routes/chatRoutes");
 const path = require("path");
 const app = express();
 app.use(express.json());
 
-const data = require("./data/data");
-const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+const data = require("./backend/data/data");
+const {
+  notFound,
+  errorHandler,
+} = require("./backend/middleware/errorMiddleware");
 
 dotenv.config();
 
