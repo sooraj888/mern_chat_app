@@ -1,0 +1,34 @@
+// @import "../mixins";
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardHeader {
+  @extend .center;
+  width: 100%;
+  min-height: 2em;
+  border-radius: inherit;
+  font-size: 1.6rem;
+  color: #02ff89;
+  font-weight: 600;
+  background-color: rgb(255, 255, 255);
+}
+
+.cardSwitchContainer {
+  @extend .center;
+  justify-content: space-evenly !important;
+}
+
+.detailsContainer {
+  margin: 0px 20px;
+}
+
+@media (max-width: 500px) {
+  .card {
+    min-width: 95%;
+    background: whitesmoke;
+  }
+}

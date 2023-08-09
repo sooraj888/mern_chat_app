@@ -1,0 +1,36 @@
+.container {
+  margin: 10px 0px;
+}
+.inputFieldContainer {
+  width: 100%;
+
+  display: flex;
+}
+.inputField {
+  width: 100%;
+  flex: 1;
+  height: 40px;
+  padding-left: 10px;
+  outline-color: rgb(0, 179, 255);
+  outline-width: 1px !important;
+  border-radius: 5px;
+  border-color: rgba(0, 0, 0, 0.291);
+}
+
+.button {
+  min-width: 64px;
+  border-color: rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+  margin-left: 3px;
+  font-weight: 600;
+}
+.labe {
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.redStar {
+  color: red;
+  font-weight: bold;
+  margin-left: 10px;
+}

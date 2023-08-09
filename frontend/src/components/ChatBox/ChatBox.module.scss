@@ -1,0 +1,27 @@
+.container {
+  width: 75%;
+  height: 100%;
+  transition: 0.5s;
+  overflow: hidden;
+  background: rgb(240, 242, 245);
+}
+
+@media (max-width: 1050px) {
+  .container {
+    width: 65%;
+  }
+}
+@media (max-width: 750px) {
+  .container {
+    width: 60%;
+  }
+}
+
+@media (max-width: 550px) {
+  .container {
+    width: 100%;
+  }
+  .hide {
+    width: 0px;
+  }
+}

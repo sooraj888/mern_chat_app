@@ -1,0 +1,25 @@
+.container {
+  width: 25%;
+  background: white;
+  transition: 0.5s;
+  overflow: hidden;
+}
+@media (max-width: 1050px) {
+  .container {
+    width: 35%;
+  }
+}
+
+@media (max-width: 750px) {
+  .container {
+    width: 40%;
+  }
+}
+@media (max-width: 550px) {
+  .container {
+    width: 100%;
+  }
+  .hide {
+    width: 0px;
+  }
+}

@@ -1,0 +1,10 @@
+.container {
+  background: rgb(237, 115, 115);
+  height: 100vh;
+  max-width: 1600px !important;
+}
+.chatContainer {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}

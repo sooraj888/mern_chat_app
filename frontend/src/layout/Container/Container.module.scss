@@ -1,0 +1,12 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerCenter {
+  // @extend .center;
+  display: flex;
+  overflow: auto;
+  flex: 1;
+}

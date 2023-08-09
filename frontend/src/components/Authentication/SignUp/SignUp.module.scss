@@ -1,0 +1,24 @@
+.signUpButton {
+  border-radius: 6px !important;
+  background: rgb(48, 131, 204) !important;
+  color: white !important;
+  font-size: 20px !important;
+  height: 50px !important;
+  margin-bottom: 20px !important;
+  width: 100%;
+}
+
+.label {
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.fileContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.uploadBtn {
+  height: 28px !important;
+}
