@@ -1,0 +1,11 @@
+.container {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  transition: 0.5s;
+  width: 100%;
+}
+.container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}

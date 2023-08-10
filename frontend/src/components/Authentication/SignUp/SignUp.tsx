@@ -1,6 +1,6 @@
 import React, { useReducer, useRef, useState } from "react";
 
-import InputText from "../../InputText/InputText";
+import InputText from "../../miscellaneous/InputText/InputText";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import storage from "../../../firebase/connect";
 import axios, { AxiosRequestConfig } from "axios";

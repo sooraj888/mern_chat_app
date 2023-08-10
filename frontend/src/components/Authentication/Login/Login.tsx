@@ -1,11 +1,12 @@
 import React, { useReducer, useRef, useState } from "react";
-import InputText from "../../InputText/InputText";
 import axios, { AxiosRequestConfig } from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
-import styles from "./Login.module.scss";
 
 import useCustomToast from "../../../hooks/useCustomToast/useCustomToast";
+import { InputText } from "../../miscellaneous";
+
+import styles from "./Login.module.scss";
 
 type input = string | number | readonly string[] | undefined;
 
@@ -71,13 +72,13 @@ function Login(): JSX.Element {
           "Content-Type": "application/json",
         },
       };
-      const userData = await axios.post(
+      const { data } = await axios.post(
         "/api/user/login",
         payload,
         axiosConfig
       );
-      if (userData) {
-        localStorage.setItem("userInfo", JSON.stringify(userData));
+      if (data) {
+        localStorage.setItem("userInfo", JSON.stringify(data));
         dispatch({ type: "CLEAR_ALL_DATA", payload: initialLogInState });
         navigate("/chats");
       }

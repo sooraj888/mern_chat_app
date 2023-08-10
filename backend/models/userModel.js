@@ -16,7 +16,7 @@ const userSchema = mongoose.Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  console.log(`this ${JSON.stringify(this)}`);
+  // console.log(`this ${JSON.stringify(this)}`);
   if (!this.isModified) {
     next();
   }

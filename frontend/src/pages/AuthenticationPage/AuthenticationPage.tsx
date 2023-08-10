@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./AuthenticationPage.module.scss";
-import { Button } from "../../components";
+import { Button } from "../../components/miscellaneous";
 import Login from "../../components/Authentication/Login/Login";
 import SignUp from "../../components/Authentication/SignUp/SignUp";
 import CenterVerticalCardLayout from "../../layout/Card/Card";
