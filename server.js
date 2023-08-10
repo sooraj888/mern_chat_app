@@ -22,6 +22,10 @@ const PORT = process.env.PORT || 8001;
 
 connectToDB();
 
+app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
+
+
 //!-------- build start----------
 // app.get("/", (req, res) => {
 //   res.json({ hi: "hii" });
@@ -33,7 +37,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")));
   console.log(__dirname);
   console.log(path.resolve("frontend", "build", "index.html").red);
-  app.use("/", (req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.resolve("frontend", "build", "index.html"));
   });
 } else {
@@ -44,8 +48,6 @@ if (process.env.NODE_ENV === "production") {
 // app.get("/", "./build/index.html");
 
 //!-------- build end----------
-app.use("/api/user", userRoutes);
-app.use("/api/chat", chatRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
