@@ -20,20 +20,21 @@ export default function UserModal({
   isMyProfile?: boolean;
 }): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user }: any = useChatState();
+  const { user, logout }: any = useChatState();
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
-    navigate("/");
+    logout();
+    navigate(0);
   };
 
   return (
     <>
       <Avatar
-        src={user.pic}
-        name={user.name}
+        src={user?.pic}
+        name={user?.name}
         onClick={() => {
           onOpen();
         }}

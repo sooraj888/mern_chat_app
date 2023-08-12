@@ -1,14 +1,12 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
 import List from "../List/List";
 import axios, { AxiosRequestConfig } from "axios";
-import Text from "../../../miscellaneous/Text/Text";
-import Avatar from "../../../miscellaneous/Avatar";
 import { useChatState } from "../../../../context/ChatProvider";
+import UserCard from "../../../miscellaneous/UserCard/UserCard";
 
 export default function SearchList({
   setIsSearchSelected,
   isSearchSelected,
-
   setSelect,
 }: {
   setIsSearchSelected: Dispatch<SetStateAction<boolean>>;
@@ -20,7 +18,7 @@ export default function SearchList({
   const [searchResult, setSearchResult] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { user, setSelectedChat }: any = useChatState();
+  const { user, setSelectedChat, chat, setChat }: any = useChatState();
   const handleOnChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchText(value);
@@ -38,7 +36,7 @@ export default function SearchList({
         );
         setSearchResult(data);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       } finally {
         setIsLoading(false);
       }
@@ -57,7 +55,7 @@ export default function SearchList({
       setSelectedChat(data);
       setSelect(true);
     } catch (e) {
-      console.error(e);
+      // console.error(e);
     } finally {
     }
   };
@@ -66,7 +64,7 @@ export default function SearchList({
     <div
       style={{ display: "flex", flexDirection: "column" }}
       onBlur={() => {
-        console.log("main blur");
+        // console.log("main blur");
       }}
     >
       <div
@@ -95,7 +93,7 @@ export default function SearchList({
         <input
           placeholder="search"
           onFocus={() => {
-            console.log("focus");
+            // console.log("focus");
             setIsSearchSelected(true);
           }}
           type="text"
@@ -117,36 +115,11 @@ export default function SearchList({
       <List isVisible={isSearchSelected}>
         {searchResult.map((item: any, index: number) => {
           return (
-            <div
-              key={index}
-              onClick={() => {
-                handleOnSelectSearchChat(item?._id);
-              }}
-              style={{
-                width: "inherit",
-                display: "flex",
-                alignItems: "center",
-                paddingTop: 6,
-                paddingBottom: 6,
-                borderBottomWidth: 1,
-                borderColor: "rgba(0,0,0,0.2)",
-                cursor: "pointer",
-                marginBottom: 2,
-              }}
-            >
-              <Avatar src={item.pic} name={item?.name} />
-              <div style={{ paddingLeft: 15 }}>
-                <Text
-                  size={6}
-                  style={{ fontWeight: "600", padding: 0, margin: 0 }}
-                >
-                  {item?.name}
-                </Text>
-                <Text style={{ fontSize: 12, padding: 0, margin: 0 }}>
-                  {item?.email}
-                </Text>
-              </div>
-            </div>
+            <UserCard
+              key={item?._id}
+              user={item}
+              handleOnSelectSearchChat={handleOnSelectSearchChat}
+            />
           );
         })}
       </List>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Avatar({
   name,
@@ -11,20 +11,26 @@ export default function Avatar({
   onClick?: React.MouseEventHandler<HTMLImageElement> | undefined;
   size?: number;
 }) {
+  const [uri, setUri] = useState<string | undefined>(src);
+
   return (
     <img
       onClick={onClick}
       alt={name + "'s image"}
+      onError={() => {
+        setUri(
+          "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg"
+        );
+      }}
       style={{
         fontSize: 10,
         textAlign: "center",
         width: size || 50,
         height: size || 50,
         borderRadius: size || 50,
-        // marginRight: 20,
         border: "1px solid rgba(0,0,0,0.2)",
       }}
-      src={src}
+      src={uri}
     ></img>
   );
 }
