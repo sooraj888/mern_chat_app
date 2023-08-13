@@ -25,7 +25,6 @@ connectToDB();
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 
-
 //!-------- build start----------
 // app.get("/", (req, res) => {
 //   res.json({ hi: "hii" });

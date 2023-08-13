@@ -8,6 +8,7 @@ const ChatProvider = ({ children }: any) => {
   const navigate = useNavigate();
   const [selectedChat, setSelectedChat] = useState<any>([]);
   const [chats, setChats] = useState<any>([]);
+  const [chatLoading, setChatLoading] = useState<boolean>();
 
   const logout = () => {
     setSelectedChat([]);
@@ -38,6 +39,8 @@ const ChatProvider = ({ children }: any) => {
         chats,
         setChats,
         logout,
+        chatLoading,
+        setChatLoading,
       }}
     >
       {children}

@@ -7,6 +7,10 @@ import CurrentChatList from "./CurrentChatList/CurrentChatList";
 
 export default function ChatList({ isSelected, setIsChatBoxSelected }: any) {
   const [isSearchSelected, setIsSearchSelected] = useState<boolean>(false);
+
+  const [selectedChatId, setSelectedChatId] = useState<string>("");
+
+  // const [selectedChat]
   return (
     <div className={`${styles.container} ${isSelected ? styles.hide : ""}`}>
       <ChatListHeader />
@@ -15,9 +19,15 @@ export default function ChatList({ isSelected, setIsChatBoxSelected }: any) {
         setIsChatBoxSelected={setIsChatBoxSelected}
         setIsSearchSelected={setIsSearchSelected}
         isSearchSelected={isSearchSelected}
+        selectedChatId={selectedChatId}
+        setSelectedChatId={setSelectedChatId}
       />
       {!isSearchSelected && (
-        <CurrentChatList setIsChatBoxSelected={setIsChatBoxSelected} />
+        <CurrentChatList
+          setIsChatBoxSelected={setIsChatBoxSelected}
+          selectedChatId={selectedChatId}
+          setSelectedChatId={setSelectedChatId}
+        />
       )}
     </div>
   );

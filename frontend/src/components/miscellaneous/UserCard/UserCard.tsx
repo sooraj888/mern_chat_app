@@ -23,7 +23,7 @@ export default function UserCard({
         borderColor: "rgba(0,0,0,0.2)",
         cursor: "pointer",
         marginBottom: 2,
-        background: isSelected ? "red" : "inherit",
+        background: isSelected ? "pink" : "inherit",
       }}
     >
       <Avatar src={user?.pic} name={user?.name} />

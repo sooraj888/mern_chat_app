@@ -1,13 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import List from "../List/List";
 import axios, { AxiosRequestConfig } from "axios";
 import { useChatState } from "../../../../context/ChatProvider";
 import UserCard from "../../../miscellaneous/UserCard/UserCard";
 import { error } from "console";
 
-export default function CurrentChatList({ setIsChatBoxSelected }: any) {
-  const { user, setSelectedChat, chats, selectedChat, setChats }: any =
-    useChatState();
+export default function CurrentChatList({
+  setIsChatBoxSelected,
+  setSelectedChatId,
+  selectedChatId,
+}: any) {
+  const {
+    user,
+    setSelectedChat,
+    chats,
+    selectedChat,
+    setChats,
+    setChatLoading,
+  }: any = useChatState();
 
   const fetchChats = async () => {
     try {
@@ -28,7 +38,9 @@ export default function CurrentChatList({ setIsChatBoxSelected }: any) {
   }, []);
 
   const handleOnSelectSearchChat = async (userId: string) => {
+    setSelectedChatId(userId);
     try {
+      setChatLoading(true);
       const axiosConfig: AxiosRequestConfig<any> = {
         headers: {
           "Content-Type": "application/json",
@@ -41,6 +53,7 @@ export default function CurrentChatList({ setIsChatBoxSelected }: any) {
     } catch (e) {
       console.error(e);
     } finally {
+      setChatLoading(false);
     }
   };
 
@@ -50,19 +63,10 @@ export default function CurrentChatList({ setIsChatBoxSelected }: any) {
         const mainItem = item?.users?.filter((userItem: any) => {
           return userItem?._id !== user?._id;
         })?.[0];
-        const selecteduser = selectedChat?.users?.filter((userItem: any) => {
-          return userItem?._id !== user?._id;
-        })?.[0];
-        // console.log(
-        //   mainItem?._id,
-        //   "++",
-        //   selectedChat?.users?.filter((userItem: any) => {
-        //     return userItem?._id !== user?._id;
-        //   })?.[0]?._id
-        // );
+
         return mainItem?._id ? (
           <UserCard
-            isSelected={selecteduser?._id === mainItem?._id}
+            isSelected={selectedChatId === mainItem?._id}
             key={mainItem?._id}
             user={mainItem}
             handleOnSelectSearchChat={handleOnSelectSearchChat}

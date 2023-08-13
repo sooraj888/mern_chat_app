@@ -6,14 +6,22 @@ import axios, { AxiosRequestConfig } from "axios";
 
 export default function ChatBox({ isSelected, setIsChatBoxSelected }: any) {
   const [loggedUser, setLoggedUser] = useState<any>();
-  const { user, setUser, selectedChat, setSelectedChat, chats, setChats }: any =
-    useChatState();
+  const {
+    user,
+    setUser,
+    selectedChat,
+    setSelectedChat,
+    chats,
+    setChats,
+    chatLoading,
+  }: any = useChatState();
 
   return (
     <div className={`${styles.container} ${isSelected ? styles.hide : ""}`}>
       <button onClick={() => setIsChatBoxSelected(false)}>ChatBox</button>
-      <DropDown />
-      {JSON.stringify(selectedChat)}
+      <div>
+        {chatLoading ? "loadding............." : JSON.stringify(selectedChat)}
+      </div>
     </div>
   );
 }

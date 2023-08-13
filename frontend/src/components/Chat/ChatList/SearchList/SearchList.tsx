@@ -8,17 +8,21 @@ export default function SearchList({
   setIsSearchSelected,
   isSearchSelected,
   setIsChatBoxSelected,
-}: {
-  setIsSearchSelected: Dispatch<SetStateAction<boolean>>;
-  isSearchSelected: boolean;
+  selectedChatId,
+  setSelectedChatId,
+}: // {
+//   setIsSearchSelected: Dispatch<SetStateAction<boolean>>;
+//   isSearchSelected: boolean;
 
-  setIsChatBoxSelected: Dispatch<SetStateAction<boolean>>;
-}) {
+//   setIsChatBoxSelected: Dispatch<SetStateAction<boolean>>;
+// }
+any) {
   const [searchText, setSearchText] = useState<string>("");
   const [searchResult, setSearchResult] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { user, setSelectedChat, chats, setChats }: any = useChatState();
+  const { user, setSelectedChat, chats, setChats, setChatLoading }: any =
+    useChatState();
   const handleOnChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchText(value);
@@ -44,7 +48,9 @@ export default function SearchList({
   };
 
   const handleOnSelectSearchChat = async (userId: string) => {
+    setSelectedChatId(userId);
     try {
+      setChatLoading(true);
       const axiosConfig: AxiosRequestConfig<any> = {
         headers: {
           "Content-Type": "application/json",
@@ -62,6 +68,7 @@ export default function SearchList({
     } catch (e) {
       // console.error(e);
     } finally {
+      setChatLoading(false);
     }
   };
 
@@ -84,6 +91,7 @@ export default function SearchList({
         <button
           onClick={() => {
             setIsSearchSelected(false);
+            setSearchText("");
           }}
           style={{
             background: "rgba(0,0,0,0.2)",
@@ -121,6 +129,7 @@ export default function SearchList({
         {searchResult.map((item: any, index: number) => {
           return (
             <UserCard
+              isSelected={selectedChatId == item?._id}
               key={item?._id}
               user={item}
               handleOnSelectSearchChat={handleOnSelectSearchChat}
