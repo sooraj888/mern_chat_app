@@ -13,13 +13,13 @@ const ChatsPage = (): JSX.Element => {
         {user && (
           <ChatList
             isSelected={isChatBoxSelected}
-            setSelect={setIsChatBoxSelected}
+            setIsChatBoxSelected={setIsChatBoxSelected}
           />
         )}
         {user && (
           <ChatBox
             isSelected={!isChatBoxSelected}
-            setSelect={setIsChatBoxSelected}
+            setIsChatBoxSelected={setIsChatBoxSelected}
           />
         )}
       </div>

@@ -4,14 +4,14 @@ import { DropDown } from "../../miscellaneous";
 import { useChatState } from "../../../context/ChatProvider";
 import axios, { AxiosRequestConfig } from "axios";
 
-export default function ChatBox({ isSelected, setSelect }: any) {
+export default function ChatBox({ isSelected, setIsChatBoxSelected }: any) {
   const [loggedUser, setLoggedUser] = useState<any>();
-  const { user, setUser, selectedChat, setSelectedChat, chat, setChat }: any =
+  const { user, setUser, selectedChat, setSelectedChat, chats, setChats }: any =
     useChatState();
 
   return (
     <div className={`${styles.container} ${isSelected ? styles.hide : ""}`}>
-      <button onClick={() => setSelect(false)}>ChatBox</button>
+      <button onClick={() => setIsChatBoxSelected(false)}>ChatBox</button>
       <DropDown />
       {JSON.stringify(selectedChat)}
     </div>

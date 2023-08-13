@@ -1,8 +1,13 @@
 import React from "react";
 import Avatar from "../Avatar";
 import Text from "../Text/Text";
+import { inherits } from "util";
 
-export default function UserCard({ user, handleOnSelectSearchChat }: any) {
+export default function UserCard({
+  user,
+  handleOnSelectSearchChat,
+  isSelected,
+}: any) {
   return (
     <div
       onClick={() => {
@@ -18,6 +23,7 @@ export default function UserCard({ user, handleOnSelectSearchChat }: any) {
         borderColor: "rgba(0,0,0,0.2)",
         cursor: "pointer",
         marginBottom: 2,
+        background: isSelected ? "red" : "inherit",
       }}
     >
       <Avatar src={user?.pic} name={user?.name} />

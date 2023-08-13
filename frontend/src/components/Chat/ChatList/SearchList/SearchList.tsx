@@ -7,18 +7,18 @@ import UserCard from "../../../miscellaneous/UserCard/UserCard";
 export default function SearchList({
   setIsSearchSelected,
   isSearchSelected,
-  setSelect,
+  setIsChatBoxSelected,
 }: {
   setIsSearchSelected: Dispatch<SetStateAction<boolean>>;
   isSearchSelected: boolean;
 
-  setSelect: Dispatch<SetStateAction<boolean>>;
+  setIsChatBoxSelected: Dispatch<SetStateAction<boolean>>;
 }) {
   const [searchText, setSearchText] = useState<string>("");
   const [searchResult, setSearchResult] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { user, setSelectedChat, chat, setChat }: any = useChatState();
+  const { user, setSelectedChat, chats, setChats }: any = useChatState();
   const handleOnChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchText(value);
@@ -52,8 +52,13 @@ export default function SearchList({
         },
       };
       const { data } = await axios.post("/api/chat", { userId }, axiosConfig);
+
+      if (!chats?.find((c: any) => c._id === data._id)) {
+        setChats([data, ...chats]);
+      }
+
       setSelectedChat(data);
-      setSelect(true);
+      setIsChatBoxSelected(true);
     } catch (e) {
       // console.error(e);
     } finally {

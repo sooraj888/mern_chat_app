@@ -5,7 +5,7 @@
   overflow: hidden;
   background: rgb(240, 242, 245);
   overflow-y: scroll;
-
+  padding: 1%;
   flex: 1;
 }
 
@@ -23,6 +23,7 @@
 @media (max-width: 550px) {
   .container {
     width: 100%;
+    padding: 0px;
   }
   .hide {
     width: 0px;
