@@ -1,12 +1,17 @@
 .container {
-  width: 75%;
-  height: 100%;
   transition: 0.5s;
   overflow: hidden;
   background: rgb(240, 242, 245);
   overflow-y: scroll;
   padding: 1%;
   flex: 1;
+  border-radius: 0.5rem;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 @media (max-width: 1050px) {

@@ -1,8 +1,8 @@
 .container {
-  background: rgb(237, 115, 115);
-
   max-width: 1600px !important;
+  padding: 20px;
 }
+
 .chatContainer {
   display: flex;
   flex-direction: row;
@@ -10,4 +10,11 @@
   height: 100%;
   // flex: 1;
   max-height: 100vh;
+  padding: 0.5rem;
+}
+
+@media (max-width: 550px) {
+  .chatContainer {
+    padding: 0.2rem;
+  }
 }

@@ -10,13 +10,7 @@ export default function SearchList({
   setIsChatBoxSelected,
   selectedChatId,
   setSelectedChatId,
-}: // {
-//   setIsSearchSelected: Dispatch<SetStateAction<boolean>>;
-//   isSearchSelected: boolean;
-
-//   setIsChatBoxSelected: Dispatch<SetStateAction<boolean>>;
-// }
-any) {
+}: any) {
   const [searchText, setSearchText] = useState<string>("");
   const [searchResult, setSearchResult] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,6 +20,7 @@ any) {
   const handleOnChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchText(value);
+    setIsChatBoxSelected(true);
     if (value.trim()) {
       try {
         setIsLoading(true);
@@ -64,7 +59,6 @@ any) {
       }
 
       setSelectedChat(data);
-      setIsChatBoxSelected(true);
     } catch (e) {
       // console.error(e);
     } finally {
@@ -74,9 +68,9 @@ any) {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column" }}
-      onBlur={() => {
-        // console.log("main blur");
+      style={{
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <div
@@ -85,7 +79,9 @@ any) {
           display: "flex",
           paddingBottom: 10,
           paddingTop: 10,
-          background: "rgba(0,0,0,0.1)",
+          background: "rgba(210,210,210,1)",
+          borderTopLeftRadius: "0.5rem",
+          borderTopRightRadius: "0.5rem",
         }}
       >
         <button
@@ -112,24 +108,24 @@ any) {
           type="text"
           value={searchText}
           style={{
-            backgroundColor: "rgba(0,0,0,0.1)",
+            backgroundColor: "rgba(0,0,0,0.2)",
             flex: 1,
             padding: 5,
             paddingLeft: 13,
             marginRight: 10,
             borderRadius: 5,
+            minWidth: 100,
           }}
           onChange={handleOnChange}
         ></input>
       </div>
 
-      {isLoading && "loading...."}
-
       <List isVisible={isSearchSelected}>
+        {isLoading && "loading...."}
         {searchResult.map((item: any, index: number) => {
           return (
             <UserCard
-              isSelected={selectedChatId == item?._id}
+              isSelected={selectedChatId === item?._id}
               key={item?._id}
               user={item}
               handleOnSelectSearchChat={handleOnSelectSearchChat}

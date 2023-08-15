@@ -39,6 +39,7 @@ export default function CurrentChatList({
 
   const handleOnSelectSearchChat = async (userId: string) => {
     setSelectedChatId(userId);
+    setIsChatBoxSelected(true);
     try {
       setChatLoading(true);
       const axiosConfig: AxiosRequestConfig<any> = {
@@ -49,7 +50,6 @@ export default function CurrentChatList({
       };
       const { data } = await axios.post("/api/chat", { userId }, axiosConfig);
       setSelectedChat(data);
-      setIsChatBoxSelected(true);
     } catch (e) {
       console.error(e);
     } finally {

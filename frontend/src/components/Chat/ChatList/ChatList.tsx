@@ -10,25 +10,32 @@ export default function ChatList({ isSelected, setIsChatBoxSelected }: any) {
 
   const [selectedChatId, setSelectedChatId] = useState<string>("");
 
-  // const [selectedChat]
   return (
     <div className={`${styles.container} ${isSelected ? styles.hide : ""}`}>
       <ChatListHeader />
-
-      <SearchList
-        setIsChatBoxSelected={setIsChatBoxSelected}
-        setIsSearchSelected={setIsSearchSelected}
-        isSearchSelected={isSearchSelected}
-        selectedChatId={selectedChatId}
-        setSelectedChatId={setSelectedChatId}
-      />
-      {!isSearchSelected && (
-        <CurrentChatList
+      <div
+        style={{
+          height: `calc(100vh - 90px)`,
+          background: "white",
+          borderRadius: "0.5rem",
+        }}
+      >
+        <SearchList
           setIsChatBoxSelected={setIsChatBoxSelected}
+          setIsSearchSelected={setIsSearchSelected}
+          isSearchSelected={isSearchSelected}
           selectedChatId={selectedChatId}
           setSelectedChatId={setSelectedChatId}
         />
-      )}
+
+        {!isSearchSelected && (
+          <CurrentChatList
+            setIsChatBoxSelected={setIsChatBoxSelected}
+            selectedChatId={selectedChatId}
+            setSelectedChatId={setSelectedChatId}
+          />
+        )}
+      </div>
     </div>
   );
 }

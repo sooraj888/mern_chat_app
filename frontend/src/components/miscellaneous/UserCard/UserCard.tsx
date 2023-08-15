@@ -1,7 +1,6 @@
 import React from "react";
 import Avatar from "../Avatar";
 import Text from "../Text/Text";
-import { inherits } from "util";
 
 export default function UserCard({
   user,
@@ -22,12 +21,11 @@ export default function UserCard({
         borderBottomWidth: 1,
         borderColor: "rgba(0,0,0,0.2)",
         cursor: "pointer",
-        marginBottom: 2,
         background: isSelected ? "pink" : "inherit",
       }}
     >
       <Avatar src={user?.pic} name={user?.name} />
-      <div style={{ paddingLeft: 15 }}>
+      <div style={{ paddingLeft: 5 }}>
         <Text size={6} style={{ fontWeight: "600", padding: 0, margin: 0 }}>
           {user?.name}
         </Text>

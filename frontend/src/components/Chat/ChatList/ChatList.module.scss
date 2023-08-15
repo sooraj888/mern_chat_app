@@ -3,10 +3,12 @@
   height: 100%;
   transition: 0.5s;
   overflow: hidden;
-  background: white;
-  padding-left: 0.5%;
-  padding-top: 0.5%;
+  margin-right: 0.12rem;
 }
+.headerContainer {
+  // margin-bottom: 0px;
+}
+
 @media (max-width: 1050px) {
   .container {
     width: 35%;
@@ -18,9 +20,11 @@
     width: 40%;
   }
 }
+
 @media (max-width: 550px) {
   .container {
     width: 100%;
+    margin-right: 0px;
   }
   .hide {
     width: 0px;
