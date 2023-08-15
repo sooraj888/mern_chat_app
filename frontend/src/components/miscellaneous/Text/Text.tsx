@@ -9,7 +9,7 @@ export default function Text({
   children?: string | Element;
   style?: React.CSSProperties;
 }): JSX.Element {
-  const text = String(children);
+  const text = String(children !== undefined ? children : "");
   switch (size) {
     case 1:
       return <h1 style={style}>{text}</h1>;

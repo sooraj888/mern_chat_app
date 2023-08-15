@@ -1,9 +1,9 @@
-const getOppositUser = () => {
-  const oppositeUser = "";
-  // selectedChat?.users?.filter((userItem: any) => {
-  //     return userItem?._id !== user?._id;
-  //   })?.[0]?._id
+const getOppositeUser = (userList: any, loggedUser: any) => {
+  const oppositeUser = userList?.users?.filter((userItem: any) => {
+    return userItem?._id !== loggedUser?._id;
+  })?.[0];
+
   return oppositeUser;
 };
 
-export { getOppositUser };
+export { getOppositeUser };

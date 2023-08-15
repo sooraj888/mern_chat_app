@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Avatar({
   name,
@@ -12,6 +12,9 @@ export default function Avatar({
   size?: number;
 }) {
   const [uri, setUri] = useState<string | undefined>(src);
+  useEffect(() => {
+    setUri(src);
+  }, [src]);
 
   return (
     <img

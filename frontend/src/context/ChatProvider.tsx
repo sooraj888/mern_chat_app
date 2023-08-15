@@ -29,6 +29,12 @@ const ChatProvider = ({ children }: any) => {
     }
   }, [navigate]);
 
+  useEffect(() => {
+    if (chatLoading) {
+      setSelectedChat([]);
+    }
+  }, [chatLoading]);
+
   return (
     <ChatContext.Provider
       value={{

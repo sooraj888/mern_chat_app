@@ -20,7 +20,7 @@ export default function SearchList({
   const handleOnChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchText(value);
-    setIsChatBoxSelected(true);
+
     if (value.trim()) {
       try {
         setIsLoading(true);
@@ -44,6 +44,7 @@ export default function SearchList({
 
   const handleOnSelectSearchChat = async (userId: string) => {
     setSelectedChatId(userId);
+    setIsChatBoxSelected(true);
     try {
       setChatLoading(true);
       const axiosConfig: AxiosRequestConfig<any> = {

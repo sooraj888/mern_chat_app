@@ -65,7 +65,7 @@ const fetchChats = expressAsyncHandler(async (req, res) => {
 });
 
 const createGroupChat = expressAsyncHandler(async (req, res) => {
-  if (!req.body.users || !req.body.name) {
+  if (!req.body.users || !req.body) {
     return res.status(400).send("Please fill all the fields");
   }
 

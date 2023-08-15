@@ -5,7 +5,7 @@ import styles from "./ChatPage.module.scss";
 
 const ChatsPage = (): JSX.Element => {
   const { user }: any = useChatState();
-  const [isChatBoxSelected, setIsChatBoxSelected] = useState<boolean>(true);
+  const [isChatBoxSelected, setIsChatBoxSelected] = useState<boolean>(false);
 
   return (
     <div className={`container-xxl p-0 m-0 ${styles.container}`}>
