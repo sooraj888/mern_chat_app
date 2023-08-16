@@ -60,19 +60,19 @@ export default function CurrentChatList({
   return (
     <List isVisible={true}>
       {chats.map((item: any, index: number) => {
-        const mainItem = item?.users?.filter((userItem: any) => {
-          return userItem?._id !== user?._id;
-        })?.[0];
+        const mainItem = !item?.isGroupChat
+          ? item?.users?.filter((userItem: any) => {
+              return userItem?._id !== user?._id;
+            })?.[0]
+          : item;
 
-        return mainItem?._id ? (
+        return (
           <UserCard
             isSelected={selectedChatId === mainItem?._id}
             key={mainItem?._id}
             user={mainItem}
             handleOnSelectSearchChat={handleOnSelectSearchChat}
           />
-        ) : (
-          <div key={index}></div>
         );
       })}
     </List>

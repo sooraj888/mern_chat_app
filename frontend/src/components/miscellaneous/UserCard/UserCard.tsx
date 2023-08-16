@@ -8,12 +8,16 @@ export default function UserCard({
   handleOnSelectSearchChat,
   isSelected,
   style,
+  onClick,
 }: any) {
   return (
     <div
       onClick={() => {
         if (handleOnSelectSearchChat) {
           handleOnSelectSearchChat(user?._id);
+        }
+        if (onClick) {
+          onClick(user);
         }
       }}
       style={{
@@ -32,7 +36,7 @@ export default function UserCard({
       <Avatar src={user?.pic} name={user?.name} />
       <div style={{ paddingLeft: 15 }}>
         <Text size={6} style={{ fontWeight: "600", padding: 0, margin: 0 }}>
-          {user?.name}
+          {!user?.isGroupChat ? user?.name : user?.chatName}
         </Text>
         <Text style={{ fontSize: 12, padding: 0, margin: 0 }}>
           {user?.email}
