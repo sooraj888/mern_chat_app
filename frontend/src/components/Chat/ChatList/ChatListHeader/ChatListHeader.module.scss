@@ -1,15 +1,12 @@
 .container {
-  // height: 60px;
   padding: 10px 5px;
-  // margin-bottom: 1px;
   color: white;
-  align-items: center;
+  justify-content: space-between;
   display: flex;
   margin-bottom: 0.12rem;
   border-radius: 0.5rem;
   background-image: linear-gradient(
     to right,
-
     rgb(211, 225, 244),
     rgb(230, 231, 234)
   );

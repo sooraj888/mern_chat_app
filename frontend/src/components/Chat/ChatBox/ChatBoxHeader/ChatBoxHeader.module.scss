@@ -1,0 +1,9 @@
+.closeButton {
+  display: none;
+}
+
+@media (max-width: 550px) {
+  .closeButton {
+    display: block;
+  }
+}

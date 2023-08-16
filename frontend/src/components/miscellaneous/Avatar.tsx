@@ -9,9 +9,9 @@ export default function Avatar({
   name?: string;
   src?: string;
   onClick?: React.MouseEventHandler<HTMLImageElement> | undefined;
-  size?: number;
+  size?: number | string;
 }) {
-  const [uri, setUri] = useState<string | undefined>(src);
+  const [uri, setUri] = useState<string | undefined>(src || "");
   useEffect(() => {
     setUri(src);
   }, [src]);

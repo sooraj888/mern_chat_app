@@ -7,11 +7,14 @@ export default function UserCard({
   user,
   handleOnSelectSearchChat,
   isSelected,
+  style,
 }: any) {
   return (
     <div
       onClick={() => {
-        handleOnSelectSearchChat(user?._id);
+        if (handleOnSelectSearchChat) {
+          handleOnSelectSearchChat(user?._id);
+        }
       }}
       style={{
         width: "inherit",
@@ -23,6 +26,7 @@ export default function UserCard({
         borderColor: "rgba(0,0,0,0.2)",
         cursor: "pointer",
         background: isSelected ? "pink" : "inherit",
+        ...style,
       }}
     >
       <Avatar src={user?.pic} name={user?.name} />
