@@ -28,13 +28,12 @@ export default function ChatList({ isSelected, setIsChatBoxSelected }: any) {
           setSelectedChatId={setSelectedChatId}
         />
 
-        {!isSearchSelected && (
-          <CurrentChatList
-            setIsChatBoxSelected={setIsChatBoxSelected}
-            selectedChatId={selectedChatId}
-            setSelectedChatId={setSelectedChatId}
-          />
-        )}
+        <CurrentChatList
+          isSearchSelected={isSearchSelected}
+          setIsChatBoxSelected={setIsChatBoxSelected}
+          selectedChatId={selectedChatId}
+          setSelectedChatId={setSelectedChatId}
+        />
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ export default function CurrentChatList({
   setIsChatBoxSelected,
   setSelectedChatId,
   selectedChatId,
+  isSearchSelected,
 }: any) {
   const {
     user,
@@ -28,6 +29,7 @@ export default function CurrentChatList({
       };
       const { data } = await axios.get("/api/chat", axiosConfig);
       if (data) {
+        console.error(data);
         setChats(data);
       }
     } catch (e) {}
@@ -49,6 +51,7 @@ export default function CurrentChatList({
         },
       };
       const { data } = await axios.post("/api/chat", { userId }, axiosConfig);
+
       setSelectedChat(data);
     } catch (e) {
       console.error(e);
@@ -69,9 +72,12 @@ export default function CurrentChatList({
         return (
           <UserCard
             isSelected={selectedChatId === mainItem?._id}
-            key={mainItem?._id}
+            key={index}
             user={mainItem}
             handleOnSelectSearchChat={handleOnSelectSearchChat}
+            onClick={(e: any) => {
+              alert(JSON.stringify(mainItem));
+            }}
           />
         );
       })}

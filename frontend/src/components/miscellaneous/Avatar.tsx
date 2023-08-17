@@ -13,7 +13,10 @@ export default function Avatar({
 }) {
   const [uri, setUri] = useState<string | undefined>(src || "");
   useEffect(() => {
-    setUri(src);
+    setUri(
+      src ||
+        "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg"
+    );
   }, [src]);
 
   return (

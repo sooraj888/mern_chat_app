@@ -16,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import UserCard from "../UserCard/UserCard";
 import styles from "./GroupModal.module.scss";
 import axios, { AxiosRequestConfig } from "axios";
+import UserBadge from "../UserBadge/UserBadge";
 // searchUserList
 export default function GroupModal({
   isMyProfile,
@@ -40,21 +41,26 @@ export default function GroupModal({
       // setIsLoading(true);
 
       const axiosConfig: AxiosRequestConfig<any> = {
-        headers: { Authorization: `Bearer ${user.token}` },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
       };
+
+      const usersIdArray = JSON.stringify(
+        selectedUsersForGroup.map((item: any) => item?._id)
+      );
 
       const { data } = await axios.post(
         "/api/chat/group",
         {
           name: "Test grop",
-          users: JSON.stringify(
-            selectedUsersForGroup.map((item: any) => item?._id)
-          ),
+          users: usersIdArray,
         },
         axiosConfig
       );
       console.error(data);
-      setChats([...data, ...chats]);
+      setChats([data, ...chats]);
       onClose();
     } catch (e) {
       console.log(e);
@@ -98,7 +104,7 @@ export default function GroupModal({
 
   const handleDelete = (e: any) => {
     const deletedAray = selectedUsersForGroup?.filter((item: any) => {
-      return item._id != e?._id;
+      return item._id != e;
     });
     setSelectedUsersForGroup(deletedAray);
   };
@@ -183,20 +189,21 @@ export default function GroupModal({
                 //selected users
                 <div
                   style={{
-                    width: "100%",
+                    maxWidth: 200,
                     height: 50,
-                    overflow: "scroll",
+                    marginTop: 10,
+                    overflowY: "hidden",
                     display: "flex",
-                    // flexDirection: "column",
                     flexDirection: "row",
-                    position: "relative",
                   }}
                 >
                   {selectedUsersForGroup.map((item: any, index) => {
                     return (
-                      <span key={index} onClick={() => handleDelete(item)}>
-                        {item?.name}
-                      </span>
+                      <UserBadge
+                        key={item?._id}
+                        onClick={(e: any) => handleDelete(e)}
+                        user={item}
+                      />
                     );
                   })}
                   {/* {JSON.stringify(searchList)} */}

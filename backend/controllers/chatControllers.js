@@ -46,7 +46,12 @@ const accessChat = expressAsyncHandler(async (req, res) => {
 
 const fetchChats = expressAsyncHandler(async (req, res) => {
   try {
-    Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
+    Chat.find({
+      $or: [
+        { users: { $elemMatch: { $eq: req.user._id } } },
+        { groupAdmin: req.user._id },
+      ],
+    })
       .populate("users", "-password")
       .populate("groupAdmin", "-password")
       .populate("latestMessage")
@@ -83,7 +88,7 @@ const createGroupChat = expressAsyncHandler(async (req, res) => {
       groupAdmin: req.user,
     });
 
-    const fullGroupChat = await Chat.find({ _id: groupChat._id })
+    const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
       .populate("users", "-password")
       .populate("groupAdmin", "-password");
 
