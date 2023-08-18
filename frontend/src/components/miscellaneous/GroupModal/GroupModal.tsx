@@ -17,6 +17,8 @@ import UserCard from "../UserCard/UserCard";
 import styles from "./GroupModal.module.scss";
 import axios, { AxiosRequestConfig } from "axios";
 import UserBadge from "../UserBadge/UserBadge";
+import { HiUserGroup } from "react-icons/hi2";
+
 // searchUserList
 export default function GroupModal({
   isMyProfile,
@@ -54,7 +56,7 @@ export default function GroupModal({
       const { data } = await axios.post(
         "/api/chat/group",
         {
-          name: "Test grop",
+          name: groupName,
           users: usersIdArray,
         },
         axiosConfig
@@ -115,14 +117,14 @@ export default function GroupModal({
 
   return (
     <>
-      <button
-        style={{ marginRight: 30 }}
+      <HiUserGroup
         onClick={() => {
           onOpen();
         }}
-      >
-        group
-      </button>
+        color="gray"
+        size={30}
+        style={{ marginTop: 10, marginRight: 10 }}
+      ></HiUserGroup>
 
       <Modal
         isOpen={isOpen}
@@ -134,7 +136,7 @@ export default function GroupModal({
         isCentered
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent style={{ background: "rgb(225,225,225)" }}>
           <ModalCloseButton />
           <ModalHeader
             fontSize={30}
@@ -152,6 +154,7 @@ export default function GroupModal({
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
+                background: "rgb(225,225,225)",
               }}
             >
               <input
@@ -185,30 +188,28 @@ export default function GroupModal({
                   setSearchText(e?.target.value);
                 }}
               />
-              {
-                //selected users
-                <div
-                  style={{
-                    maxWidth: 200,
-                    height: 50,
-                    marginTop: 10,
-                    overflowY: "hidden",
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
-                  {selectedUsersForGroup.map((item: any, index) => {
-                    return (
-                      <UserBadge
-                        key={item?._id}
-                        onClick={(e: any) => handleDelete(e)}
-                        user={item}
-                      />
-                    );
-                  })}
-                  {/* {JSON.stringify(searchList)} */}
-                </div>
-              }
+
+              <div
+                style={{
+                  maxWidth: 200,
+                  height: 50,
+                  marginTop: 10,
+                  overflowY: "hidden",
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                {selectedUsersForGroup.map((item: any, index) => {
+                  return (
+                    <UserBadge
+                      key={item?._id}
+                      onClick={(e: any) => handleDelete(e)}
+                      user={item}
+                    />
+                  );
+                })}
+                {/* {JSON.stringify(searchList)} */}
+              </div>
               <Button
                 onClick={handleLogout}
                 type="submit"
@@ -225,7 +226,7 @@ export default function GroupModal({
               className={styles.searchUserList}
               style={{
                 display: "flex",
-                width: 200,
+                width: "100%",
                 maxHeight: 80,
                 flexDirection: "column",
                 overflow: "scroll",

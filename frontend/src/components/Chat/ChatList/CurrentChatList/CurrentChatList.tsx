@@ -76,7 +76,7 @@ export default function CurrentChatList({
             user={mainItem}
             handleOnSelectSearchChat={handleOnSelectSearchChat}
             onClick={(e: any) => {
-              alert(JSON.stringify(mainItem));
+              console.log(e);
             }}
           />
         );
