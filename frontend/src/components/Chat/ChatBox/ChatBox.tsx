@@ -19,17 +19,17 @@ export default function ChatBox({ isSelected, setIsChatBoxSelected }: any) {
         selectedChatUser={selectedChatUser}
         setIsChatBoxSelected={setIsChatBoxSelected}
       />
-
-      {
-        <div
-          style={{
-            display: "flex",
-            background: "whitesmoke",
-            flex: 1,
-            borderRadius: 5,
-          }}
-        ></div>
-      }
+      <div
+        style={{
+          display: "flex",
+          background: "rgb(215,210,210)",
+          flex: 1,
+          borderRadius: 5,
+          overflow: "hidden",
+        }}
+      >
+        <div> {JSON.stringify(selectedChatUser)}</div>
+      </div>
     </div>
   );
 }

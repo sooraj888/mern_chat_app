@@ -1,0 +1,13 @@
+.card {
+  //   background: indigo;
+  //   color: white;
+}
+
+.card:hover {
+  background: blueviolet !important;
+  color: white;
+}
+
+.selectedCard {
+  background: rgb(163, 219, 238);
+}

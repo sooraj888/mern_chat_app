@@ -2,6 +2,7 @@ import React from "react";
 import Avatar from "../Avatar";
 import Text from "../Text/Text";
 import { inherits } from "util";
+import styles from "./UserCard.module.scss";
 
 export default function UserCard({
   user,
@@ -9,9 +10,16 @@ export default function UserCard({
   isSelected,
   style,
   onClick,
-}: any) {
+}: {
+  style?: React.CSSProperties | undefined;
+  onClick?: any;
+  user?: any;
+  handleOnSelectSearchChat?: any;
+  isSelected?: any;
+}) {
   return (
     <div
+      className={`${styles.card} ${isSelected && styles.selectedCard}`}
       onClick={() => {
         if (handleOnSelectSearchChat) {
           handleOnSelectSearchChat(user?._id);
@@ -26,10 +34,10 @@ export default function UserCard({
         alignItems: "center",
         paddingTop: 6,
         paddingBottom: 6,
-        borderBottomWidth: 1,
-        borderColor: "rgba(0,0,0,0.2)",
+        // borderBottomWidth: 1,
+        // borderColor: "rgba(0,0,0,0.2)",
         cursor: "pointer",
-        background: isSelected ? "pink" : "inherit",
+        // background: isSelected ? "pink" : "",
         ...style,
       }}
     >

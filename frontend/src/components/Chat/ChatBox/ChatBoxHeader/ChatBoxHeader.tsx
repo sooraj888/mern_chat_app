@@ -4,6 +4,7 @@ import Text from "../../../miscellaneous/Text/Text";
 import styles from "./ChatBoxHeader.module.scss";
 
 import { BiArrowBack } from "react-icons/bi";
+import { UserModal } from "../../../miscellaneous";
 
 export default function ChatBoxHeader({
   selectedChatUser,
@@ -12,12 +13,13 @@ export default function ChatBoxHeader({
   return (
     <div
       style={{
-        // background: "green",
-        display: "flex",
         marginBottom: 10,
         alignItems: "center",
         height: 50,
       }}
+      className={`${
+        selectedChatUser ? styles.container : styles.hideContainer
+      }`}
     >
       <BiArrowBack
         onClick={() => {
@@ -28,11 +30,7 @@ export default function ChatBoxHeader({
         className={styles.closeButton}
       />
       {selectedChatUser && (
-        <Avatar
-          onClick={() => {}}
-          src={selectedChatUser?.pic}
-          name={selectedChatUser?.name}
-        />
+        <UserModal isMyProfile={false} user={selectedChatUser}></UserModal>
       )}
 
       {selectedChatUser && (

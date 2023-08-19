@@ -1,7 +1,6 @@
 .App {
   min-height: 100vh;
   display: flex;
-  background-color: whitesmoke;
   background-image: url("../public/assets/background.png");
   background-repeat: no-repeat;
   background-size: cover;

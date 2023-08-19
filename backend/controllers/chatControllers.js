@@ -46,12 +46,7 @@ const accessChat = expressAsyncHandler(async (req, res) => {
 
 const fetchChats = expressAsyncHandler(async (req, res) => {
   try {
-    Chat.find({
-      $or: [
-        { users: { $elemMatch: { $eq: req.user._id } } },
-        { groupAdmin: req.user._id },
-      ],
-    })
+    Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
       .populate("users", "-password")
       .populate("groupAdmin", "-password")
       .populate("latestMessage")
@@ -78,7 +73,8 @@ const createGroupChat = expressAsyncHandler(async (req, res) => {
   if (users.length < 2) {
     return res.status(400).send("More than two users to form an group chat");
   }
-  users.push(req.users);
+
+  users.push(req?.user);
 
   try {
     const groupChat = await Chat.create({

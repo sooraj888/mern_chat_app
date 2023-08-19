@@ -16,11 +16,13 @@ import Text from "../Text/Text";
 
 export default function UserModal({
   isMyProfile,
+  user,
 }: {
   isMyProfile?: boolean;
+  user: any;
 }): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user, logout }: any = useChatState();
+  const { logout }: any = useChatState();
 
   const navigate = useNavigate();
 

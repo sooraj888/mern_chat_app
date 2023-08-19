@@ -39,24 +39,32 @@ export default function CurrentChatList({
     fetchChats();
   }, []);
 
-  const handleOnSelectSearchChat = async (userId: string) => {
-    setSelectedChatId(userId);
-    setIsChatBoxSelected(true);
-    try {
-      setChatLoading(true);
-      const axiosConfig: AxiosRequestConfig<any> = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user?.token}`,
-        },
-      };
-      const { data } = await axios.post("/api/chat", { userId }, axiosConfig);
+  const handleOnSelectSearchChat = async (e: any) => {
+    if (e?.isGroupChat) {
+      setSelectedChat([]);
+    } else {
+      setSelectedChatId(e?._id);
+      setIsChatBoxSelected(true);
+      try {
+        setChatLoading(true);
+        const axiosConfig: AxiosRequestConfig<any> = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.token}`,
+          },
+        };
+        const { data } = await axios.post(
+          "/api/chat",
+          { userId: e?._id },
+          axiosConfig
+        );
 
-      setSelectedChat(data);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setChatLoading(false);
+        setSelectedChat(data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setChatLoading(false);
+      }
     }
   };
 
@@ -71,12 +79,12 @@ export default function CurrentChatList({
 
         return (
           <UserCard
+            style={{ borderBottom: "1px solid rgba(0,0,0,0.2)" }}
             isSelected={selectedChatId === mainItem?._id}
             key={index}
             user={mainItem}
-            handleOnSelectSearchChat={handleOnSelectSearchChat}
             onClick={(e: any) => {
-              console.log(e);
+              handleOnSelectSearchChat(e);
             }}
           />
         );

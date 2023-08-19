@@ -18,6 +18,7 @@ import styles from "./GroupModal.module.scss";
 import axios, { AxiosRequestConfig } from "axios";
 import UserBadge from "../UserBadge/UserBadge";
 import { HiUserGroup } from "react-icons/hi2";
+import useCustomToast from "../../../hooks/useCustomToast/useCustomToast";
 
 // searchUserList
 export default function GroupModal({
@@ -30,14 +31,24 @@ export default function GroupModal({
   const { user, chats, setChats }: any = useChatState();
 
   const [searchList, setSearchList] = useState([]);
-  const [selectedUsersForGroup, setSelectedUsersForGroup] = useState([]);
+  const [selectedUsersForGroup, setSelectedUsersForGroup] = useState<any>([]);
   const [searchText, setSearchText] = useState("");
   const [groupName, setGroupName] = useState("");
 
   const navigate = useNavigate();
+  const toast = useCustomToast();
 
-  const handleLogout = async (e: any) => {
+  const handleCreateGroup = async (e: any) => {
     e.preventDefault();
+
+    if (!groupName.trim()) {
+      toast({ status: "error", title: "Group name should not be empty" });
+      return;
+    }
+    if (selectedUsersForGroup?.length < 2) {
+      toast({ status: "error", title: "Group mush contain at list 3 user" });
+      return;
+    }
 
     try {
       // setIsLoading(true);
@@ -97,8 +108,13 @@ export default function GroupModal({
     }
   };
 
-  const addtoGruplist = (e: never) => {
-    if (selectedUsersForGroup.includes(e)) {
+  const addToGroupList = (e: any | never) => {
+    if (
+      selectedUsersForGroup.find((item: any) => {
+        return item?._id === e._id;
+      })
+    ) {
+      toast({ status: "warning", title: "user already added" });
     } else {
       setSelectedUsersForGroup([...selectedUsersForGroup, e]);
     }
@@ -131,6 +147,7 @@ export default function GroupModal({
         onClose={() => {
           setSearchText("");
           setGroupName("");
+          setSearchList([]);
           onClose();
         }}
         isCentered
@@ -148,7 +165,7 @@ export default function GroupModal({
           </ModalHeader>
           <ModalBody>
             <form
-              onSubmit={handleLogout}
+              onSubmit={handleCreateGroup}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -192,14 +209,14 @@ export default function GroupModal({
               <div
                 style={{
                   maxWidth: 200,
-                  height: 50,
-                  marginTop: 10,
+                  // height: 50,
+                  margin: "10px 0px",
                   overflowY: "hidden",
-                  display: "flex",
+                  display: selectedUsersForGroup?.length > 0 ? "flex" : "none",
                   flexDirection: "row",
                 }}
               >
-                {selectedUsersForGroup.map((item: any, index) => {
+                {selectedUsersForGroup.map((item: any) => {
                   return (
                     <UserBadge
                       key={item?._id}
@@ -208,10 +225,9 @@ export default function GroupModal({
                     />
                   );
                 })}
-                {/* {JSON.stringify(searchList)} */}
               </div>
               <Button
-                onClick={handleLogout}
+                onClick={handleCreateGroup}
                 type="submit"
                 color={"white"}
                 bg={"red"}
@@ -231,19 +247,33 @@ export default function GroupModal({
                 flexDirection: "column",
                 overflow: "scroll",
                 position: "relative",
+                marginTop: 10,
+                alignItems: "center",
               }}
             >
-              {searchList?.map((item: any, index: any) => {
-                return (
-                  <UserCard
-                    key={item?._id}
-                    user={item}
-                    onClick={(e: never) => {
-                      addtoGruplist(e);
-                    }}
-                  />
-                );
-              })}
+              <div style={{}}>
+                {searchList?.map((item: any, index: any) => {
+                  return (
+                    <UserCard
+                      style={{
+                        borderRadius: 10,
+                        marginBottom: 2,
+                        marginTop: 2,
+                        background: "rgb(180,180,180)",
+                        paddingLeft: 10,
+                        paddingRight: 10,
+                        maxWidth: 300,
+                        minWidth: 250,
+                      }}
+                      key={item?._id}
+                      user={item}
+                      onClick={(e: never) => {
+                        addToGroupList(e);
+                      }}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </ModalBody>
         </ModalContent>

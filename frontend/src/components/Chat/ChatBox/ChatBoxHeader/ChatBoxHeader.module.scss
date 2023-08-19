@@ -1,3 +1,9 @@
+.container {
+  display: flex;
+}
+.hideContainer {
+  display: none;
+}
 .closeButton {
   display: none;
 }
@@ -5,5 +11,8 @@
 @media (max-width: 550px) {
   .closeButton {
     display: block;
+  }
+  .hideContainer {
+    display: flex;
   }
 }

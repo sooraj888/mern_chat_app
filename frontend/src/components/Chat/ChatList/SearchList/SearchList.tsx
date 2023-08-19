@@ -45,6 +45,7 @@ export default function SearchList({
   const handleOnSelectSearchChat = async (userId: string) => {
     setSelectedChatId(userId);
     setIsChatBoxSelected(true);
+
     try {
       setChatLoading(true);
       const axiosConfig: AxiosRequestConfig<any> = {
@@ -57,9 +58,11 @@ export default function SearchList({
 
       if (!chats?.find((c: any) => c._id === data._id)) {
         setChats([data, ...chats]);
+      } else {
       }
 
       setSelectedChat(data);
+      setIsSearchSelected(false);
     } catch (e) {
       // console.error(e);
     } finally {
@@ -126,6 +129,7 @@ export default function SearchList({
         {searchResult.map((item: any, index: number) => {
           return (
             <UserCard
+              style={{ borderBottom: "1px solid rgba(0,0,0,0.2)" }}
               isSelected={selectedChatId === item?._id}
               key={item?._id}
               user={item}
