@@ -6,9 +6,12 @@ import styles from "./ChatBoxHeader.module.scss";
 import { BiArrowBack } from "react-icons/bi";
 import { UserModal } from "../../../miscellaneous";
 
+import GroupUpdateModal from "../../../miscellaneous/GroupModal/GroupUpdateModal";
+
 export default function ChatBoxHeader({
   selectedChatUser,
   setIsChatBoxSelected,
+  setFetchChatAgain,
 }: any) {
   return (
     <div
@@ -29,14 +32,30 @@ export default function ChatBoxHeader({
         style={{ marginRight: "1rem", cursor: "pointer" }}
         className={styles.closeButton}
       />
-      {selectedChatUser && (
-        <UserModal isMyProfile={false} user={selectedChatUser}></UserModal>
-      )}
+      {selectedChatUser?.isGroupChat ? (
+        <>
+          {selectedChatUser && (
+            <GroupUpdateModal setFetchChatAgain={setFetchChatAgain} />
+          )}
 
-      {selectedChatUser && (
-        <Text size={3} style={{ margin: "0px 0px 0px 20px" }}>
-          {selectedChatUser?.name}
-        </Text>
+          {selectedChatUser && (
+            <Text size={3} style={{ margin: "0px 0px 0px 20px" }}>
+              {String(selectedChatUser?.chatName)?.toUpperCase()}
+            </Text>
+          )}
+        </>
+      ) : (
+        <>
+          {selectedChatUser && (
+            <UserModal isMyProfile={false} user={selectedChatUser}></UserModal>
+          )}
+
+          {selectedChatUser && (
+            <Text size={3} style={{ margin: "0px 0px 0px 20px" }}>
+              {String(selectedChatUser?.name)?.toUpperCase()}
+            </Text>
+          )}
+        </>
       )}
     </div>
   );

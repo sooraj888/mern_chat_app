@@ -5,7 +5,11 @@ import ChatListHeader from "./ChatListHeader/ChatListHeader";
 import SearchList from "./SearchList/SearchList";
 import CurrentChatList from "./CurrentChatList/CurrentChatList";
 
-export default function ChatList({ isSelected, setIsChatBoxSelected }: any) {
+export default function ChatList({
+  isSelected,
+  setIsChatBoxSelected,
+  fetchChatAgain,
+}: any) {
   const [isSearchSelected, setIsSearchSelected] = useState<boolean>(false);
 
   const [selectedChatId, setSelectedChatId] = useState<string>("");
@@ -33,6 +37,7 @@ export default function ChatList({ isSelected, setIsChatBoxSelected }: any) {
           setIsChatBoxSelected={setIsChatBoxSelected}
           selectedChatId={selectedChatId}
           setSelectedChatId={setSelectedChatId}
+          fetchChatAgain={fetchChatAgain}
         />
       </div>
     </div>

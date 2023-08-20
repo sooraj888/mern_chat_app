@@ -6,12 +6,12 @@ const ChatContext: any = createContext({});
 const ChatProvider = ({ children }: any) => {
   const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
-  const [selectedChat, setSelectedChat] = useState<any>([]);
+  const [selectedChat, setSelectedChat] = useState<any>(null);
   const [chats, setChats] = useState<any>([]);
   const [chatLoading, setChatLoading] = useState<boolean>();
 
   const logout = () => {
-    setSelectedChat([]);
+    setSelectedChat(null);
     setUser([]);
     setChats([]);
   };
@@ -31,7 +31,7 @@ const ChatProvider = ({ children }: any) => {
 
   useEffect(() => {
     if (chatLoading) {
-      setSelectedChat([]);
+      // setSelectedChat(null);
     }
   }, [chatLoading]);
 

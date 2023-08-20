@@ -6,7 +6,7 @@ export default function Text({
   style,
 }: {
   size?: number;
-  children?: string | Element;
+  children?: string | Element | string[];
   style?: React.CSSProperties;
 }): JSX.Element {
   const text = String(children !== undefined ? children : "");

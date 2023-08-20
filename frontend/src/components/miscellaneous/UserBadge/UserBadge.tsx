@@ -9,17 +9,17 @@ export default function UserBadge({ onClick, user }: any) {
         style={{
           background: "purple",
           maxHeight: 25,
-          padding: "0px 10px",
+          padding: "0px 15px 0px 8px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           margin: "0px 4px",
-          borderRadius: 10,
+          borderRadius: 6,
           color: "white",
         }}
       >
-        <span>{user?.name}</span>
-        <AiOutlineClose style={{ marginLeft: 5 }} />
+        <span>{String(user?.name).toUpperCase()}</span>
+        <AiOutlineClose style={{ marginLeft: 10 }} />
       </button>
     </div>
   );

@@ -7,6 +7,7 @@ import Container from "../../layout/Container/Container";
 const ChatsPage = (): JSX.Element => {
   const { user }: any = useChatState();
   const [isChatBoxSelected, setIsChatBoxSelected] = useState<boolean>(false);
+  const [fetchChatAgain, setFetchChatAgain] = useState(false);
 
   return (
     <Container isCenter={true}>
@@ -16,12 +17,14 @@ const ChatsPage = (): JSX.Element => {
             <ChatList
               isSelected={isChatBoxSelected}
               setIsChatBoxSelected={setIsChatBoxSelected}
+              fetchChatAgain={fetchChatAgain}
             />
           )}
           {user && (
             <ChatBox
               isSelected={!isChatBoxSelected}
               setIsChatBoxSelected={setIsChatBoxSelected}
+              setFetchChatAgain={setFetchChatAgain}
             />
           )}
         </div>

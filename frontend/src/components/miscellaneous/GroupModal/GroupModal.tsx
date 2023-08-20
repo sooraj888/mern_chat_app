@@ -127,10 +127,6 @@ export default function GroupModal({
     setSelectedUsersForGroup(deletedAray);
   };
 
-  useEffect(() => {
-    console.log(selectedUsersForGroup);
-  }, [selectedUsersForGroup]);
-
   return (
     <>
       <HiUserGroup
@@ -255,11 +251,12 @@ export default function GroupModal({
                 {searchList?.map((item: any, index: any) => {
                   return (
                     <UserCard
+                      sm
                       style={{
                         borderRadius: 10,
                         marginBottom: 2,
                         marginTop: 2,
-                        background: "rgb(180,180,180)",
+                        background: "rgb(200,200,200)",
                         paddingLeft: 10,
                         paddingRight: 10,
                         maxWidth: 300,

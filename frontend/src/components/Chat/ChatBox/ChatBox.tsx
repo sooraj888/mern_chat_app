@@ -6,30 +6,19 @@ import { getOppositeUser } from "../../../utility/getOppositeUser";
 import Text from "../../miscellaneous/Text/Text";
 import Avatar from "../../miscellaneous/Avatar";
 import ChatBoxHeader from "./ChatBoxHeader/ChatBoxHeader";
+import SingleChatBox from "./SingleChat/SingleChatBox";
 
-export default function ChatBox({ isSelected, setIsChatBoxSelected }: any) {
-  const { user, selectedChat }: any = useChatState();
-
-  const selectedChatUser = getOppositeUser(selectedChat, user);
-  // BiArrowBack
-
+export default function ChatBox({
+  isSelected,
+  setIsChatBoxSelected,
+  setFetchChatAgain,
+}: any) {
   return (
     <div className={`${styles.container} ${isSelected ? styles.hide : ""}`}>
-      <ChatBoxHeader
-        selectedChatUser={selectedChatUser}
+      <SingleChatBox
         setIsChatBoxSelected={setIsChatBoxSelected}
+        setFetchChatAgain={setFetchChatAgain}
       />
-      <div
-        style={{
-          display: "flex",
-          background: "rgb(215,210,210)",
-          flex: 1,
-          borderRadius: 5,
-          overflow: "hidden",
-        }}
-      >
-        <div> {JSON.stringify(selectedChatUser)}</div>
-      </div>
     </div>
   );
 }

@@ -10,12 +10,14 @@ export default function UserCard({
   isSelected,
   style,
   onClick,
+  sm,
 }: {
   style?: React.CSSProperties | undefined;
   onClick?: any;
   user?: any;
   handleOnSelectSearchChat?: any;
   isSelected?: any;
+  sm?: boolean;
 }) {
   return (
     <div
@@ -41,8 +43,15 @@ export default function UserCard({
         ...style,
       }}
     >
-      <Avatar src={user?.pic} name={user?.name} />
-      <div style={{ paddingLeft: 15 }}>
+      <Avatar src={user?.pic} name={user?.name} size={sm ? 35 : 50} />
+      <div
+        style={{
+          paddingLeft: 15,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+        }}
+      >
         <Text size={6} style={{ fontWeight: "600", padding: 0, margin: 0 }}>
           {!user?.isGroupChat ? user?.name : user?.chatName}
         </Text>

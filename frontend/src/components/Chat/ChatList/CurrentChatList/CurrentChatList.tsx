@@ -10,6 +10,7 @@ export default function CurrentChatList({
   setSelectedChatId,
   selectedChatId,
   isSearchSelected,
+  fetchChatAgain,
 }: any) {
   const {
     user,
@@ -37,14 +38,14 @@ export default function CurrentChatList({
 
   useEffect(() => {
     fetchChats();
-  }, []);
+  }, [fetchChatAgain]);
 
   const handleOnSelectSearchChat = async (e: any) => {
+    setSelectedChatId(e?._id);
+    setIsChatBoxSelected(true);
     if (e?.isGroupChat) {
-      setSelectedChat([]);
+      setSelectedChat(e);
     } else {
-      setSelectedChatId(e?._id);
-      setIsChatBoxSelected(true);
       try {
         setChatLoading(true);
         const axiosConfig: AxiosRequestConfig<any> = {
