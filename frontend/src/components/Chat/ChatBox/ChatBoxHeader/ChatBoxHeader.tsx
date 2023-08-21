@@ -12,6 +12,7 @@ export default function ChatBoxHeader({
   selectedChatUser,
   setIsChatBoxSelected,
   setFetchChatAgain,
+  fetchMessage,
 }: any) {
   return (
     <div
@@ -19,6 +20,7 @@ export default function ChatBoxHeader({
         marginBottom: 10,
         alignItems: "center",
         height: 50,
+        position: "static",
       }}
       className={`${
         selectedChatUser ? styles.container : styles.hideContainer
@@ -35,7 +37,10 @@ export default function ChatBoxHeader({
       {selectedChatUser?.isGroupChat ? (
         <>
           {selectedChatUser && (
-            <GroupUpdateModal setFetchChatAgain={setFetchChatAgain} />
+            <GroupUpdateModal
+              setFetchChatAgain={setFetchChatAgain}
+              fetchMessage={fetchMessage}
+            />
           )}
 
           {selectedChatUser && (

@@ -5,11 +5,13 @@ export default function Avatar({
   src,
   onClick,
   size,
+  style,
 }: {
   name?: string;
   src?: string;
   onClick?: React.MouseEventHandler<HTMLImageElement> | undefined;
   size?: number | string;
+  style?: React.CSSProperties | undefined;
 }) {
   const [uri, setUri] = useState<string | undefined>(src || "");
   useEffect(() => {
@@ -35,6 +37,7 @@ export default function Avatar({
         height: size || 50,
         borderRadius: size || 50,
         border: "1px solid rgba(0,0,0,0.2)",
+        ...style,
       }}
       src={uri}
     ></img>

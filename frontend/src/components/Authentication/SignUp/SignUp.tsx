@@ -155,7 +155,6 @@ function SignUp(): JSX.Element {
         toast({ title: "Select an Image", status: "warning" });
       }
     } catch (e) {
-      console.error(e);
       setIsImageUploading(false);
     }
   };

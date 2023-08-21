@@ -24,6 +24,7 @@ import UserCard from "../UserCard/UserCard";
 
 export default function GroupUpdateModal({
   setFetchChatAgain,
+  fetchMessage,
 }: any): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -114,6 +115,7 @@ export default function GroupUpdateModal({
       } else {
         setSelectedChat(data);
       }
+      fetchMessage();
 
       setFetchChatAgain((prev: boolean) => !prev);
     } catch (eror) {
@@ -141,7 +143,6 @@ export default function GroupUpdateModal({
 
         setSearchList(data);
       } catch (e) {
-        console.log(e);
       } finally {
         // setIsLoading(false);
       }

@@ -72,11 +72,10 @@ export default function GroupModal({
         },
         axiosConfig
       );
-      console.error(data);
+
       setChats([data, ...chats]);
       onClose();
     } catch (e) {
-      console.log(e);
     } finally {
       // setIsLoading(false);
     }
@@ -101,7 +100,6 @@ export default function GroupModal({
 
         setSearchList(data);
       } catch (e) {
-        console.log(e);
       } finally {
         // setIsLoading(false);
       }

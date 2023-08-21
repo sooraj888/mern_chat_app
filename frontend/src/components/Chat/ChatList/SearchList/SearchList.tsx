@@ -35,7 +35,6 @@ export default function SearchList({
         );
         setSearchResult(data);
       } catch (e) {
-        // console.log(e);
       } finally {
         setIsLoading(false);
       }
@@ -64,7 +63,6 @@ export default function SearchList({
       setSelectedChat(data);
       setIsSearchSelected(false);
     } catch (e) {
-      // console.error(e);
     } finally {
       setChatLoading(false);
     }
@@ -106,7 +104,6 @@ export default function SearchList({
         <input
           placeholder="search"
           onFocus={() => {
-            // console.log("focus");
             setIsSearchSelected(true);
           }}
           type="text"

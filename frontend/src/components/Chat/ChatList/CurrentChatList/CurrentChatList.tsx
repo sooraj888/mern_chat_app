@@ -30,7 +30,6 @@ export default function CurrentChatList({
       };
       const { data } = await axios.get("/api/chat", axiosConfig);
       if (data) {
-        console.error(data);
         setChats(data);
       }
     } catch (e) {}
@@ -62,7 +61,6 @@ export default function CurrentChatList({
 
         setSelectedChat(data);
       } catch (e) {
-        console.error(e);
       } finally {
         setChatLoading(false);
       }

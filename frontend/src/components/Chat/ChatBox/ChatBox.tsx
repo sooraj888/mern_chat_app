@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./ChatBox.module.scss";
 
 import { useChatState } from "../../../context/ChatProvider";
-import { getOppositeUser } from "../../../utility/getOppositeUser";
+import { getOppositeUser } from "../../../utility/chatLogics";
 import Text from "../../miscellaneous/Text/Text";
 import Avatar from "../../miscellaneous/Avatar";
 import ChatBoxHeader from "./ChatBoxHeader/ChatBoxHeader";
