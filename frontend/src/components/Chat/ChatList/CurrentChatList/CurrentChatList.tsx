@@ -45,24 +45,25 @@ export default function CurrentChatList({
     if (e?.isGroupChat) {
       setSelectedChat(e);
     } else {
-      try {
-        setChatLoading(true);
-        const axiosConfig: AxiosRequestConfig<any> = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
-          },
-        };
-        const { data } = await axios.post(
-          "/api/chat",
-          { userId: e?._id },
-          axiosConfig
-        );
-
-        setSelectedChat(data);
-      } catch (e) {
-      } finally {
-        setChatLoading(false);
+      if (selectedChatId !== e?._id) {
+        try {
+          setChatLoading(true);
+          const axiosConfig: AxiosRequestConfig<any> = {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user?.token}`,
+            },
+          };
+          const { data } = await axios.post(
+            "/api/chat",
+            { userId: e?._id },
+            axiosConfig
+          );
+          setSelectedChat(data);
+        } catch (e) {
+        } finally {
+          setChatLoading(false);
+        }
       }
     }
   };

@@ -33,8 +33,6 @@ export default function SingleChatBox({
     setNewMessage("");
     if (newMessage.trim()) {
       try {
-        setIsLoading(true);
-
         const axiosConfig: AxiosRequestConfig<{}> | undefined = {
           headers: {
             "Content-Type": "application/json",
@@ -50,12 +48,8 @@ export default function SingleChatBox({
           },
           axiosConfig
         );
-
         setMessage([...message, data]);
-      } catch (error) {
-      } finally {
-        setIsLoading(false);
-      }
+      } catch (error) {}
     } else {
       toast({ status: "warning", title: "Enter a message before sending" });
     }
