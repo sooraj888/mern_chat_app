@@ -8,6 +8,12 @@ import { InputText } from "../../../miscellaneous";
 import useCustomToast from "../../../../hooks/useCustomToast/useCustomToast";
 import axios, { AxiosRequestConfig } from "axios";
 import ScrollableChat from "./ScrollableChat";
+import io from "socket.io-client";
+
+// const ENDPOINT = "http://localhost:8000"; //for development
+
+const ENDPOINT = "https://chat-app-mern-render.onrender.com"; //for production
+var socket: any, selectedChatCompare: any;
 
 export default function SingleChatBox({
   setIsChatBoxSelected,
@@ -22,12 +28,31 @@ export default function SingleChatBox({
   const [message, setMessage] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [newMessage, setNewMessage] = useState<any>("");
+  const [socketConnected, setSocketConnected] = useState(false);
 
   const toast = useCustomToast();
 
   useEffect(() => {
-    console.log(message);
-  }, [message]);
+    socket = io(ENDPOINT);
+    socket.emit("setup", user);
+    socket.on("connected", () => {
+      setSocketConnected(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on("message received", (newMessageReceived: any) => {
+      console.log(newMessageReceived);
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare?._id !== newMessageReceived?.chat?._id
+      ) {
+        // give notification
+      } else {
+        setMessage([...message, newMessageReceived]);
+      }
+    });
+  });
 
   const handleOnSendMessage = async () => {
     setNewMessage("");
@@ -48,7 +73,10 @@ export default function SingleChatBox({
           },
           axiosConfig
         );
-        setMessage([...message, data]);
+        setMessage((prev: any) => {
+          return [...prev, data];
+        });
+        await socket.emit("new message", data);
       } catch (error) {}
     } else {
       toast({ status: "warning", title: "Enter a message before sending" });
@@ -79,6 +107,7 @@ export default function SingleChatBox({
       );
 
       setMessage(data);
+      socket.emit("join room", selectedChat?._id);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -87,6 +116,7 @@ export default function SingleChatBox({
 
   useEffect(() => {
     fetchMessage();
+    selectedChatCompare = selectedChat;
   }, [selectedChat]);
 
   return (

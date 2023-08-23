@@ -52,6 +52,39 @@ if (process.env.NODE_ENV === "production") {
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`.green);
+});
+
+const io = require("socket.io")(server, {
+  pingTimeout: 60000,
+  cors: { origin: "http://localhost:3000 " },
+});
+
+io.on("connection", (socket) => {
+  console.log("connected to socket.io ".red);
+  socket.on("setup", (userData) => {
+    socket.join(userData?._id);
+    console.log(userData?._id);
+    socket.emit("connected");
+  });
+
+  socket.on("join room", (room) => {
+    socket.join(room);
+    console.log("user joined room ", room);
+  });
+
+  socket.on("new message", (newMessageReceived) => {
+    var chat = newMessageReceived?.chat;
+
+    if (!chat.users) {
+      return console.log("chat.user not defined", newMessageReceived);
+    }
+
+    chat.users.forEach((user) => {
+      if (user?._id === newMessageReceived?.sender._id) return;
+      console.log("user emit", user._id, "".red);
+      socket.in(user._id).emit("message received", newMessageReceived);
+    });
+  });
 });
