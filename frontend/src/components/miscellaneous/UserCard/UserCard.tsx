@@ -4,6 +4,9 @@ import Text from "../Text/Text";
 import { inherits } from "util";
 import styles from "./UserCard.module.scss";
 
+const GROUP_ICON =
+  "https://www.clipartmax.com/png/middle/204-2045091_group-together-teamwork-icon-people-icon-flat-png.png";
+
 export default function UserCard({
   user,
   handleOnSelectSearchChat,
@@ -11,6 +14,7 @@ export default function UserCard({
   style,
   onClick,
   sm,
+  fullData,
 }: {
   style?: React.CSSProperties | undefined;
   onClick?: any;
@@ -18,6 +22,7 @@ export default function UserCard({
   handleOnSelectSearchChat?: any;
   isSelected?: any;
   sm?: boolean;
+  fullData?: any;
 }) {
   return (
     <div
@@ -27,7 +32,7 @@ export default function UserCard({
           handleOnSelectSearchChat(user?._id);
         }
         if (onClick) {
-          onClick(user);
+          onClick(fullData);
         }
       }}
       style={{
@@ -43,7 +48,11 @@ export default function UserCard({
         ...style,
       }}
     >
-      <Avatar src={user?.pic} name={user?.name} size={sm ? 35 : 50} />
+      <Avatar
+        src={fullData?.isGroupChat ? GROUP_ICON : user?.pic}
+        name={user?.name}
+        size={sm ? 35 : 50}
+      />
       <div
         style={{
           paddingLeft: 15,

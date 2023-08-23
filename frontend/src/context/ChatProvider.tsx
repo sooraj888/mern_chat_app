@@ -1,3 +1,4 @@
+import axios, { AxiosRequestConfig } from "axios";
 import { createContext, useContext, useState, useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,13 +17,47 @@ const ChatProvider = ({ children }: any) => {
     setChats([]);
   };
 
+  //! feature implementation
+  //! imp code start
+  // const callLoginApi = async (payload: any) => {
+  //   if (!payload) {
+  //     return;
+  //   }
+  //   try {
+  //     const axiosConfig: AxiosRequestConfig<any> = {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     };
+  //     const { data } = await axios.post(
+  //       "/api/user/login",
+  //       {
+  //         email: payload.email,
+  //         password: "12345678",
+  //       },
+  //       axiosConfig
+  //     );
+  //     if (data) {
+  //       localStorage.setItem("userInfo", JSON.stringify(data));
+  //       setUser(data);
+  //     }
+  //   } catch (e: any) {
+  //     navigate("/");
+  //   } finally {
+  //   }
+  // };
+  //! imp code end start
+
   useEffect(() => {
     try {
       const userData: Object = JSON.parse(
         localStorage.getItem("userInfo") || ""
       );
       if (userData) {
+        // callLoginApi(userData);
         setUser(userData);
+      } else {
+        navigate("/");
       }
     } catch (error) {
       navigate("/");

@@ -42,30 +42,31 @@ export default function CurrentChatList({
   const handleOnSelectSearchChat = async (e: any) => {
     setSelectedChatId(e?._id);
     setIsChatBoxSelected(true);
-    if (e?.isGroupChat) {
-      setSelectedChat(e);
-    } else {
-      if (selectedChatId !== e?._id) {
-        try {
-          setChatLoading(true);
-          const axiosConfig: AxiosRequestConfig<any> = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${user?.token}`,
-            },
-          };
-          const { data } = await axios.post(
-            "/api/chat",
-            { userId: e?._id },
-            axiosConfig
-          );
-          setSelectedChat(data);
-        } catch (e) {
-        } finally {
-          setChatLoading(false);
-        }
-      }
-    }
+    setSelectedChat(e);
+    // if (e?.isGroupChat) {
+    //   setSelectedChat(e);
+    // } else {
+    //   if (selectedChatId !== e?._id) {
+    //     try {
+    //       setChatLoading(true);
+    //       const axiosConfig: AxiosRequestConfig<any> = {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Authorization: `Bearer ${user?.token}`,
+    //         },
+    //       };
+    //       const { data } = await axios.post(
+    //         "/api/chat",
+    //         { userId: e?._id },
+    //         axiosConfig
+    //       );
+    //       setSelectedChat(data);
+    //     } catch (e) {
+    //     } finally {
+    //       setChatLoading(false);
+    //     }
+    //   }
+    // }
   };
 
   return (
@@ -83,6 +84,7 @@ export default function CurrentChatList({
             isSelected={selectedChatId === mainItem?._id}
             key={index}
             user={mainItem}
+            fullData={item}
             onClick={(e: any) => {
               handleOnSelectSearchChat(e);
             }}

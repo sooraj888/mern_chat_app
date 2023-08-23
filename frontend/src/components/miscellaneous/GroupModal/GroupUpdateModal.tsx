@@ -152,7 +152,9 @@ export default function GroupUpdateModal({
   return (
     <>
       <Avatar
-        src={user?.pic}
+        src={
+          "https://www.clipartmax.com/png/middle/204-2045091_group-together-teamwork-icon-people-icon-flat-png.png"
+        }
         name={user?.name}
         onClick={() => {
           onOpen();
@@ -265,6 +267,7 @@ export default function GroupUpdateModal({
                   return (
                     <UserCard
                       sm={true}
+                      fullData={item}
                       style={{
                         borderRadius: 10,
                         marginBottom: 2,

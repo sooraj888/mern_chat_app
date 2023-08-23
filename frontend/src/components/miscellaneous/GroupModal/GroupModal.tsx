@@ -262,6 +262,7 @@ export default function GroupModal({
                       }}
                       key={item?._id}
                       user={item}
+                      fullData={item}
                       onClick={(e: never) => {
                         addToGroupList(e);
                       }}
