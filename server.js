@@ -65,7 +65,7 @@ io.on("connection", (socket) => {
   console.log("connected to socket.io ".red);
   socket.on("setup", (userData) => {
     socket.join(userData?._id);
-    console.log(userData?._id);
+
     socket.emit("connected");
   });
 
@@ -83,8 +83,19 @@ io.on("connection", (socket) => {
 
     chat.users.forEach((user) => {
       if (user?._id === newMessageReceived?.sender._id) return;
-      console.log("user emit", user._id, "".red);
+
       socket.in(user._id).emit("message received", newMessageReceived);
     });
+  });
+
+  socket.on("typing", (rome) => {
+    socket.in(rome).emit("typing");
+  });
+  socket.on("stop typing", (rome) => {
+    socket.in(rome).emit("stop typing");
+  });
+
+  socket.off("setup", () => {
+    socket.leave(userData?._id);
   });
 });

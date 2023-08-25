@@ -14,15 +14,15 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ChakraProvider>
-        <ChatProvider>
-          <App />
-        </ChatProvider>
-      </ChakraProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <BrowserRouter>
+    <ChakraProvider>
+      <ChatProvider>
+        <App />
+      </ChatProvider>
+    </ChakraProvider>
+  </BrowserRouter>
+  // </React.StrictMode>
 );
 
 reportWebVitals();

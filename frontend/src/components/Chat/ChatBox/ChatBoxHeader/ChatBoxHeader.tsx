@@ -13,6 +13,7 @@ export default function ChatBoxHeader({
   setIsChatBoxSelected,
   setFetchChatAgain,
   fetchMessage,
+  isTyping,
 }: any) {
   return (
     <div
@@ -44,9 +45,11 @@ export default function ChatBoxHeader({
           )}
 
           {selectedChatUser && (
-            <Text size={3} style={{ margin: "0px 0px 0px 20px" }}>
-              {String(selectedChatUser?.chatName)?.toUpperCase()}
-            </Text>
+            <>
+              <Text size={3} style={{ margin: "0px 0px 0px 20px" }}>
+                {String(selectedChatUser?.chatName)?.toUpperCase()}
+              </Text>
+            </>
           )}
         </>
       ) : (
@@ -56,9 +59,19 @@ export default function ChatBoxHeader({
           )}
 
           {selectedChatUser && (
-            <Text size={3} style={{ margin: "0px 0px 0px 20px" }}>
-              {String(selectedChatUser?.name)?.toUpperCase()}
-            </Text>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <Text size={3} style={{ margin: "0px 0px 0px 20px" }}>
+                {String(selectedChatUser?.name)?.toUpperCase()}
+              </Text>
+              {isTyping && (
+                <Text
+                  style={{ color: "rgb(0,250,0)", margin: "0px 0px 0px 20px" }}
+                  size={6}
+                >
+                  typing...
+                </Text>
+              )}
+            </div>
           )}
         </>
       )}

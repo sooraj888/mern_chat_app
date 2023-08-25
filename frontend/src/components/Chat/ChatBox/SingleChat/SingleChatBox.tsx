@@ -12,7 +12,10 @@ import io from "socket.io-client";
 
 // const ENDPOINT = "http://localhost:8000"; //for development
 
-const ENDPOINT = "https://chat-app-mern-render.onrender.com"; //for production
+const ENDPOINT =
+  process.env.NODE_ENV == "development"
+    ? "http://localhost:8000"
+    : "https://chat-app-mern-render.onrender.com"; //for production
 var socket: any, selectedChatCompare: any;
 
 export default function SingleChatBox({
@@ -29,6 +32,8 @@ export default function SingleChatBox({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [newMessage, setNewMessage] = useState<any>("");
   const [socketConnected, setSocketConnected] = useState(false);
+  const [typing, setTyping] = useState<boolean>(false);
+  const [isTyping, setIsTyping] = useState<boolean>(false);
 
   const toast = useCustomToast();
 
@@ -38,24 +43,32 @@ export default function SingleChatBox({
     socket.on("connected", () => {
       setSocketConnected(true);
     });
+    socket.on("typing", () => {
+      setIsTyping(true);
+    });
+    socket.on("stop typing", () => {
+      setIsTyping(false);
+    });
   }, []);
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived: any) => {
-      console.log(newMessageReceived);
+      // console.log(newMessageReceived);
       if (
         !selectedChatCompare ||
         selectedChatCompare?._id !== newMessageReceived?.chat?._id
       ) {
         // give notification
       } else {
-        setMessage([...message, newMessageReceived]);
+        setMessage((prev: any) => [...prev, newMessageReceived]);
       }
     });
-  });
+  }, []);
 
   const handleOnSendMessage = async () => {
     setNewMessage("");
+    setTyping(false);
+    socket.emit("stop typing", selectedChat?._id);
     if (newMessage.trim()) {
       try {
         const axiosConfig: AxiosRequestConfig<{}> | undefined = {
@@ -76,7 +89,7 @@ export default function SingleChatBox({
         setMessage((prev: any) => {
           return [...prev, data];
         });
-        await socket.emit("new message", data);
+        socket.emit("new message", data);
       } catch (error) {}
     } else {
       toast({ status: "warning", title: "Enter a message before sending" });
@@ -85,6 +98,25 @@ export default function SingleChatBox({
 
   const onTypingHandler = (e: any) => {
     setNewMessage(e.target.value);
+
+    if (!socketConnected) {
+      return;
+    } else {
+      if (!typing) {
+        setTyping(true);
+        socket.emit("typing", selectedChat?._id);
+      }
+      let lastTypingTime = new Date().getTime();
+      var timerLength = 3000;
+      setTimeout(() => {
+        var timeNow = new Date().getTime();
+        var timeDiff = timeNow - lastTypingTime;
+        if (timeDiff >= timerLength && typing) {
+          socket.emit("stop typing", selectedChat?._id);
+          setTyping(false);
+        }
+      }, timerLength);
+    }
   };
 
   const fetchMessage = async () => {
@@ -128,6 +160,7 @@ export default function SingleChatBox({
             selectedChatUser={selectedChatUser}
             setIsChatBoxSelected={setIsChatBoxSelected}
             fetchMessage={fetchMessage}
+            isTyping={isTyping}
           />
           <div
             style={{
@@ -163,6 +196,7 @@ export default function SingleChatBox({
                 )}
               </div>
             }
+
             <InputText
               onSend={() => {
                 handleOnSendMessage();
@@ -179,7 +213,7 @@ export default function SingleChatBox({
               style={{
                 padding: "0 5px",
                 width: "100%",
-                margin: "2px 0px",
+                margin: "2px 0px 5px",
               }}
             />
           </div>
