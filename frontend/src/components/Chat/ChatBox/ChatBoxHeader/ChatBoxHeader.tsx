@@ -45,11 +45,19 @@ export default function ChatBoxHeader({
           )}
 
           {selectedChatUser && (
-            <>
+            <div style={{ display: "flex", flexDirection: "column" }}>
               <Text size={3} style={{ margin: "0px 0px 0px 20px" }}>
                 {String(selectedChatUser?.chatName)?.toUpperCase()}
               </Text>
-            </>
+              {isTyping && (
+                <Text
+                  style={{ color: "rgb(0,250,0)", margin: "0px 0px 0px 20px" }}
+                  size={6}
+                >
+                  typing...
+                </Text>
+              )}
+            </div>
           )}
         </>
       ) : (
